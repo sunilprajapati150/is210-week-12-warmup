@@ -30,8 +30,11 @@ class Task03TestCase(unittest.TestCase):
             logger = task_03.CustomLogger('/my/crazy/pathname/whatever.log')
             logger.log('one')
             logger.log('two')
-            self.assertEqual(len(logger.msgs), 3, 'Logger missing messages.')
-            logger.flush()
+            try:
+                logger.flush()
+            except Exception as err:
+                self.assertEqual(len(logger.msgs), 3, 'Logger missing msgs.')
+                raise err
 
 
 if __name__ == '__main__':
