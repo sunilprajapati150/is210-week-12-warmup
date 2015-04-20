@@ -8,13 +8,16 @@ Warmup Tasks
 :College: CUNY School of Professional Studies
 :Course-Name: Software Application Programming I
 :Course-Code: IS 210
-:Points: ##
+:Points: 15
 :Due-Date: YYYY-MM-DDTHH:mm:ss
 
 Overview
 ========
 
-[overview]
+This week, we learn about a pillar of the pantheon of Python programming
+paradigms: exceptions. Throughout this assignment you will be challenged
+to both use and consider the use of exceptions as a control mechanisms
+withing your programs.
 
 Instructions
 ============
@@ -41,24 +44,105 @@ files that you create!
 Warmup Tasks
 ============
 
-Task ##
+Task 01
 -------
 
-[description of task]
+In this exercise you'll be adding exception handling to a function that
+already exists.
 
 Specifications
 ^^^^^^^^^^^^^^
 
-[step-by-step directions of the task]
+#.  Open ``task_01.py``
+
+#.  Add exception handling to the ``simple_lookup()`` function so that
+    attempts to access any index or key of ``var1`` that do not exist will
+    print a warning message and return ``var1``
+
+#.  Allow all other exceptions to fail normally.
+
+.. tip::
+
+    There is a single exception class that suits this best.
+    
+Example
+^^^^^^^
+
+.. code:: pycon
+
+    >>> simple_lookup([1,2], 4)
+    Warning: Your index/key doesn't exist.
+    [1,2]
+    >>> simple_lookup({}, 'banana')
+    Warning: Your index/key doesn't exist.
+    {}
+
+Task 02
+-------
+
+In this exercise, you'll raise a manual exception when a condition is not
+met in a particular function. In particular, we'll be converting birth year to
+age.
+
+Specifications
+^^^^^^^^^^^^^^
+
+#.  Open ``task_02.py``
+
+#.  Add a check that tests whether or not the person has a valid (0 or greater)
+
+#.  If the age is invalid, raise an ``InvalidAgeError``
 
 Examples
 ^^^^^^^^
 
-[examples of the work in-progress]
-
 .. code:: pycon
 
-    >>>
+    >>> get_age(2099)
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    __main__.InvalidAgeError
+
+Task 03
+-------
+
+The ``finally`` clause is particularly useful in handling cleanup tasks such
+as closing file descriptors or data streams.
+
+Specifications
+^^^^^^^^^^^^^^
+
+#.  Open ``task_03.py``. This class represents a very simple logging class.
+    Python offers much-better built-in loggers but this is a good teaching
+    example.
+
+#.  Modify ``flush()`` so that any predictable errors are caught and are,
+    themselves, logged.
+
+    #.  If the target logfile cannot be opened, log this fact then re-raise
+        the error.
+
+    #.  Upon encountering any other ``IOError``, log the error and stop loop
+        loop processing (but continue with the rest of the program)
+
+    #.  Do not allow stored messages to be removed from the ``msgs`` object if
+        they cannot be written to the disk.
+
+    #.  Allow msgs processing to continue as long as it doesn't encounter an
+        ``IOError``
+
+    #.  Upon encountering any other error, use the ``log()`` method to log the
+        error encountered
+
+#.  Ensure that the ``close()`` method is called no matter what exceptions are
+    encountered.
+
+.. note::
+
+    Unit testing will be limited in this particular question as exception
+    handling largely defeats changes in program state and, to be frank, Python
+    is just really good with polymorphism. There's almost nothing that can
+    trigger an exception with str()!
 
 Executing Tests
 ===============
