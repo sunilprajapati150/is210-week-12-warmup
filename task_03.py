@@ -8,24 +8,37 @@ import time
 
 class CustomLogger(object):
 
-    def __init__(self, logfilename):
+    def __init__(self, logfilename): #Creates customlogger
         self.logfilename = logfilename
         self.msgs = []
 
-    def log(self, msg, timestamp=None):
+    def log(self, msg, timestamp=None): # logs changes
         if timestamp is None:
             timestamp = time.time()
         self.msgs.append((timestamp, msg))
 
-    def flush(self):
+    def flush(self): #Looks for errors and handles them
         handled = []
 
-        fhandler = open(self.logfilename, 'a')
+        try:
+
+            fhandler = open(self.logfilename, 'a')
+        except IOError:
+            self.log('Unable to open logfile.')
+            raise IOError
         for index, entry in enumerate(self.msgs):
-            fhandler.write(str(entry) + '\n')
-            handled.append(index)
+            try:
+                fhandler.write(str(entry) + '\n')
+                handled.append(index)
+            except IOError:
+                self.log('Unable to write logfile')
+                handled.append('Error')
+                break
 
         fhandler.close()
 
         for index in handled[::-1]:
-            del self.msgs[index]
+            if handled[::-1] is 'Error':
+                pass
+            else:
+                del self.msgs[index]
